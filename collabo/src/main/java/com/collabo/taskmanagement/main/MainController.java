@@ -11,9 +11,4 @@ public class MainController {
         return "main/index";
     }
 
-    @GetMapping("/task")
-    public String task(){
-        return "blank";
-    }
-
 }
