@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.collabo.taskmanagement.auth.MemberRepository">
+    <select id="list" resultType="Member">
+        select * from Member
+    </select>
+
+    <insert id="insert" parameterType="Member">
+        insert into Member
+        (email, password, name, age, gender, phone)
+        values
+        (#{email}, #{password}, #{name}, #{age}, #{gender}, #{phone})
+    </insert>
+
+    <select id="findByEmail" parameterType="String" resultType="Member">
+        select * from Member where email = #{email}
+    </select>
+</mapper>
