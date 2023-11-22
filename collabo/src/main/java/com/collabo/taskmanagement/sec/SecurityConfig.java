@@ -18,27 +18,23 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http
-                .csrf(csrf->csrf.disable())
-                .authorizeRequests(
-                        req ->
-                                req
-                                        .requestMatchers("/css/**", "/js/**", "/img/**","/assets/**","/main/**", "/projectlist/**", "/scss/**", "/vendor/**").permitAll()
+        http    .csrf(csrf -> csrf.disable())
+                .authorizeRequests(req -> req
+                                        .requestMatchers("/css/**", "/js/**", "/img/**", "/assets/**", "/main/**", "/projectlist/**", "/scss/**", "/vendor/**").permitAll()
                                         .requestMatchers("/auth/**").permitAll()
                                         .requestMatchers("/").permitAll()
 //                                     .requestMatchers("/member").hasRole("ADMIN")
                                         .anyRequest().authenticated()
                 )
-                .formLogin( login ->
-                        login
+                .formLogin(login -> login
                                 .loginPage("/auth/login")
-                                .defaultSuccessUrl("/",true)
+                                .defaultSuccessUrl("/", true)
                                 .usernameParameter("email")
                                 .failureUrl("/auth/login/error")
-                                .permitAll() )
-                .logout( logout->logout.logoutUrl("/auth/logout") )
+                                .permitAll())
+                .logout(logout -> logout.logoutUrl("/auth/logout"))
 //
 //                .userDetailsService((email)->{
 //                    Member dbMember = memberRepository.findByEmail(email);
