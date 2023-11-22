@@ -11,4 +11,6 @@ public interface MemberRepository {
     public void insert(Member member);
 
     public Member findByEmail(String email);
+
+
 }
