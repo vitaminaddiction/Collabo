@@ -584,7 +584,7 @@
                         </div>
                     </div>
                     <div>
-                        <button class="btn btn-success updateBtn" style="float: right;" id="input-btn">입력</button>
+                        <button class="btn btn-success input-btn" style="float: right;" >입력</button>
                         <button class="btn btn-primary refreshBtn" style="float: right;">새로고침</button>
                     </div>
                 </div>
@@ -660,21 +660,27 @@
             $(modalId).modal('hide');
             $(this).closest('tr').remove();
         });
-        $('#input-btn').on('click', function () {
-            var selectedIdx = [2, 3, 4];
+        $('.input-btn').on('click', function () {
+            var selectedIdx = [];
+            $('.col-md-6:last-child table tr:not(:first-child)').each(function(index, element) {
+                var dataId = $(element).data('id');
+                selectedIdx.push(dataId);
+            });
+            console.log(selectedIdx);
             $.ajax({
                 url: '/TODOListupdate',
                 type: 'POST',
-                dataType: 'json',
-                data: { idx: selectedIdx },
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                data: { idx: selectedIdx.join(',') },
                 success: function(response) {
                     console.log('Update successful');
                 },
                 error: function(error) {
                     // Handle the error response from the server if needed
-                    console.error('Error updating TODO list', error);
+                    console.error('Error updating TODOlist', error);
                 }
             });
+            window.location.href = '/TODOListtemp';
         });
     });
     $(document).ready(function () {
