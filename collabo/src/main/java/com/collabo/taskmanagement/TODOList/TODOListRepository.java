@@ -6,7 +6,7 @@ import java.util.List;
 
 @Mapper
 public interface TODOListRepository {
-    public List<TODOList> list();
-
-    public int countRow();
+    public List<TODOList> list(int cIdx);
+    public TODOList selectone(int Idx);
+    public TODOList update(int M_idx, int state, int idx);
 }

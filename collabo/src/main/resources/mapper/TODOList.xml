@@ -7,5 +7,21 @@
         select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL
         JOIN Category AS c ON C_idx=c.idx
         where M_idx=0
+        <if test="cIdx != null">
+            AND TL.C_idx = #{cIdx}
+        </if>
     </select>
+    <select id="selectone" resultType="TODOList">
+        select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL
+        JOIN Category AS c ON C_idx=c.idx
+        <if test="Idx != null">
+            where TL.idx = #{Idx}
+        </if>
+    </select>
+    <update id="update" parameterType="TODOList">
+        UPDATE `collabo`.`TODOList`
+        SET `M_idx`=#{M_idx},
+        `state`=#{state}
+        WHERE `idx`=#{idx};
+    </update>
 </mapper>
