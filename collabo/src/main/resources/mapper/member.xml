@@ -9,9 +9,9 @@
 
     <insert id="insert" parameterType="Member">
         insert into Member
-        (email, password, name, age, gender, phone)
+        (email, password, name, phone)
         values
-        (#{email}, #{password}, #{name}, #{age}, #{gender}, #{phone})
+        (#{email}, #{password}, #{name}, #{phone})
     </insert>
 
     <select id="findByEmail" parameterType="String" resultType="Member">
