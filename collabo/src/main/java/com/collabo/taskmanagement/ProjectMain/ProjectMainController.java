@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class ProjectMainController {
-    @GetMapping("task/index")
+    @GetMapping("project/index")
     public String index(){
-        return "task/index";
+        return "project/index";
     }
 }

@@ -31,7 +31,7 @@ public class AuthService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
 
         return User.builder()
-                .username(dbMember.getEmail())
+                .username(dbMember.getName())
                 .password(dbMember.getPassword())
                 .roles("USER")
                 .build();

@@ -1,6 +1,9 @@
 package com.collabo.taskmanagement.auth;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,5 +54,35 @@ public class AuthController {
     @GetMapping("forgot-password")
     public String forgotpassword(){
         return "auth/forgot-password";
+    }
+
+    @GetMapping("/user-email")
+    public String getUserEmail(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 사용자가 로그인되어 있으면
+        if (authentication != null && authentication.isAuthenticated()) {
+            String userEmail = authentication.getName(); // 현재 사용자의 이메일을 가져옵니다.
+            model.addAttribute("userEmail", userEmail);
+            System.out.println(authentication);
+            System.out.println(userEmail);
+            System.out.println(memberRepository.findByEmail(userEmail));
+        } else {
+            model.addAttribute("userEmail", "로그인되지 않았습니다.");
+        }
+
+        return "project/index";
+    }
+
+
+
+    @GetMapping("logout")
+    public String logout(Authentication authentication, HttpServletRequest request){
+        System.out.println(authentication);
+        System.out.println(authentication.getPrincipal());
+        // jsp 에서 session 안에 있는 모든 내용 삭제..
+        //request.getSession().invalidate();
+
+        return "redirect:/";
     }
 }
