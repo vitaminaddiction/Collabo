@@ -1,6 +1,8 @@
 package com.collabo.taskmanagement.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +13,21 @@ import org.springframework.stereotype.Service;
 public class AuthService implements UserDetailsService {
     @Autowired
     MemberRepository memberRepository;
+
+    public Member loadUserByAuthority(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            String userEmail = authentication.getName(); // 현재 사용자의 이메일을 가져옵니다.
+
+            Member member = memberRepository.findByEmail(userEmail);
+
+            return member;
+        } else {
+            return null;
+        }
+    }
+
 
     public String insert(Member member){
         Member dbmember = memberRepository.findByEmail(member.getEmail());
@@ -23,6 +40,8 @@ public class AuthService implements UserDetailsService {
         }
     }
 
+
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member dbMember = memberRepository.findByEmail(email);
@@ -31,7 +50,7 @@ public class AuthService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
 
         return User.builder()
-                .username(dbMember.getName())
+                .username(dbMember.getEmail())
                 .password(dbMember.getPassword())
                 .roles("USER")
                 .build();

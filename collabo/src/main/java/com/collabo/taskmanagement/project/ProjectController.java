@@ -1,6 +1,7 @@
 package com.collabo.taskmanagement.project;
 
 
+import com.collabo.taskmanagement.auth.AuthService;
 import com.collabo.taskmanagement.auth.Member;
 import com.collabo.taskmanagement.auth.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,8 @@ import java.util.List;
 @Controller
 @RequestMapping("project")
 public class ProjectController {
-
+    @Autowired
+    AuthService authService;
     @Autowired
     MemberRepository memberRepository;
     @Autowired
@@ -25,23 +27,9 @@ public class ProjectController {
 
     @GetMapping("list")
     public String list(Model model){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication != null && authentication.isAuthenticated()) {
-            String userEmail = authentication.getName(); // 현재 사용자의 이메일을 가져옵니다.
-            model.addAttribute("userEmail", userEmail);
-            System.out.println(authentication);
-            System.out.println(userEmail);
-
-            Member member = memberRepository.findByEmail(userEmail);
-
-            System.out.println(member);
-            List<Project> projects =  projectRepository.myProject(member);
-            System.out.println(projects);
-
-        } else {
-            model.addAttribute("userEmail", "로그인되지 않았습니다.");
-        }
+        Member member = authService.loadUserByAuthority();
+        List<Project> list = projectRepository.myProject(member);
+        System.out.println(list);
         return "project/list";
     }
 }
