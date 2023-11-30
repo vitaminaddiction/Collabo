@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -32,18 +33,6 @@ public class TODOListController {
         return "TODOList/TODOList";
     }
 
-    @GetMapping("/TODOListinfo")
-    public String TODOListinfo(Model model, @RequestParam("idx") int Idx){
-        try {
-            TODOList tlistone;
-            tlistone=todoListRepository.selectone(Idx);
-            model.addAttribute("tlistone",tlistone);
-        }catch (Exception e){
-            System.out.println(e.toString());
-        }
-        return "TODOList/TODOListinfo";
-    }
-
     @GetMapping("/TODOListresult")
     public String TODOListresult(){
         return "TODOList/TODOListresult";
@@ -55,11 +44,14 @@ public class TODOListController {
     }
 
     @PostMapping("/TODOListupdate")
-    @ResponseBody
-    public String TODOListupdate(Model model,int[] idx){
+    public String TODOListupdate(@RequestParam("idx") String idxString){
         try {
-            for (int i = 0; i < idx.length; i++){
-                todoListRepository.update(2,1,idx[i]);
+            String[] idxArray = idxString.split(",");
+            int[] intArray = Arrays.stream(idxArray)
+                    .mapToInt(Integer::parseInt)
+                    .toArray();
+            for (int index : intArray) {
+                todoListRepository.update(1, 1, index);
             }
         }catch (Exception e){
             System.out.println(e.toString());
