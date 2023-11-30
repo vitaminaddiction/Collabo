@@ -9,5 +9,6 @@ import java.util.List;
 public interface TODOListRepository {
     public List<TODOList> list(@Param("pIdx") int pIdx, @Param("cIdx") int cIdx);
     public List<TODOList> mylist(int idx);
+    public List<TODOList> listByState(int idx, int state);
     public void update(int M_idx, int state, int idx);
 }

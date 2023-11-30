@@ -18,6 +18,13 @@
         JOIN Category AS c ON C_idx=c.idx
         where M_idx=#{idx}
     </select>
+
+    <select id="listByState" resultType="TODOList" parameterType="java.util.Map">
+        select TL.idx, P_idx, title, content, deadline, `name`, state, M_idx from TODOList TL
+        join Category c on TL.C_idx = c.idx
+        where TL.P_idx = #{idx} and TL.state = #{state}
+    </select>
+
     <update id="update" parameterType="TODOList">
         UPDATE `collabo`.`TODOList`
         SET `M_idx`=#{M_idx},
