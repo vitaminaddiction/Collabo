@@ -1,5 +1,6 @@
 package com.collabo.taskmanagement.ProjectMain;
 
+import com.collabo.taskmanagement.TODOList.TODOListRepository;
 import com.collabo.taskmanagement.project.Project;
 import com.collabo.taskmanagement.project.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class ProjectMainController {
     @Autowired
     ProjectRepository projectRepository;
+    @Autowired
+    TODOListRepository todoListRepository;
 
     @GetMapping("project/index")
     public String index(){
