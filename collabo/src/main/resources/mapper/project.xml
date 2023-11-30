@@ -3,8 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.collabo.taskmanagement.project.ProjectRepository">
-    <select id="list" resultType="Project">
+    <select id="list" resultType="Project" parameterType="Integer">
         select * from Project
+        where state = 0
+        order by idx desc
+        limit #{pageNum}, 8
     </select>
 
     <select id="myProject" resultType="Project" parameterType="java.util.Map">
@@ -24,5 +27,10 @@
         select count(*) from Project p
         join Team t on p.idx = t.P_idx
         where t.M_idx = ${idx}
+    </select>
+
+    <select id="countRowPublic" resultType="Integer">
+        select count(*) from Project p
+        where state = 0
     </select>
 </mapper>

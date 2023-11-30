@@ -8,11 +8,13 @@ import java.util.Map;
 
 @Mapper
 public interface ProjectRepository {
-    public List<Project> list();
+    public List<Project> list(int pageNum);
 
     public List<Project> myProject(Map<String, Object> map);
 
     public Project selectOne(int idx);
 
     public int countRow(Member member);
+
+    public int countRowPublic();
 }

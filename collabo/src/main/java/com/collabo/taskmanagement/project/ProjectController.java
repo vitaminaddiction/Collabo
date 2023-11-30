@@ -24,7 +24,7 @@ public class ProjectController {
 
 
     @GetMapping("myList")
-    public String list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum){
+    public String myList(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum){
 
         model.addAttribute("pageNum", pageNum);
 
@@ -45,5 +45,23 @@ public class ProjectController {
 
         model.addAttribute("countPage", countPage);
         return "project/myList";
+    }
+
+    @GetMapping("list")
+    public String list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum){
+        model.addAttribute("pageNum", pageNum);
+
+        pageNum = (pageNum - 1) * 8;
+
+        List<Project> list = projectRepository.list(pageNum);
+        int countRow = projectRepository.countRowPublic();
+
+        model.addAttribute("list", list);
+        model.addAttribute("countRow", countRow);
+
+        int countPage = (int)Math.ceil(countRow / 8.0);
+
+        model.addAttribute("countPage", countPage);
+        return "project/list";
     }
 }
