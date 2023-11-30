@@ -23,8 +23,9 @@ public class TODOListController {
     public String takeTODOList(Model model){
         try {
             List<TODOList> tlist;
+            int pIdx=1;
             for (int cIdx = 1; cIdx <= 4; cIdx++){
-                tlist=todoListRepository.list(cIdx);
+                tlist=todoListRepository.list(cIdx,pIdx);
                 model.addAttribute("tlist"+cIdx,tlist);
             }
         }catch (Exception e){
@@ -41,9 +42,11 @@ public class TODOListController {
     @GetMapping("/TODOList")
     public String TODOList(Model model){
         try {
-            List<TODOList> tlist=todoListRepository.list();
+            int pIdx=1;
+            int mIdx=1;
+            List<TODOList> tlist=todoListRepository.list(pIdx,0);
             model.addAttribute("tlist",tlist);
-            List<TODOList> mytlist=todoListRepository.mylist(1);
+            List<TODOList> mytlist=todoListRepository.mylist(mIdx);
             model.addAttribute("mytlist",mytlist);
         }catch (Exception e){
             System.out.println(e.toString());

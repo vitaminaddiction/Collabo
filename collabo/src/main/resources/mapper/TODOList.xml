@@ -6,8 +6,9 @@
     <select id="list" resultType="TODOList">
         select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL
         JOIN Category AS c ON C_idx=c.idx
-        <if test="cIdx != null">
-            where M_idx=0
+        where P_idx=#{pIdx}
+        <if test="cIdx > 0">
+            AND M_idx=0
             AND TL.C_idx = #{cIdx}
         </if>
     </select>
