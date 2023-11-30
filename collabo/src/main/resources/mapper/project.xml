@@ -7,14 +7,22 @@
         select * from Project
     </select>
 
-    <select id="myProject" resultType="Project" parameterType="Member">
+    <select id="myProject" resultType="Project" parameterType="java.util.Map">
         select * from Project p
         join Team t on p.idx = t.P_idx
-        where t.M_idx = #{idx}
+        where t.M_idx = #{member.idx} and deadline > CURDATE()
+        order by idx desc
+        limit #{pageNum, jdbcType=INTEGER}, 8
     </select>
 
     <select id="selectOne" resultType="Project" parameterType="Integer">
         select * from Project p
         where p.idx = #{idx}
+    </select>
+
+    <select id="countRow" resultType="Integer" parameterType="Member">
+        select count(*) from Project p
+        join Team t on p.idx = t.P_idx
+        where t.M_idx = ${idx}
     </select>
 </mapper>

@@ -4,12 +4,15 @@ import com.collabo.taskmanagement.auth.Member;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface ProjectRepository {
     public List<Project> list();
 
-    public List<Project> myProject(Member member);
+    public List<Project> myProject(Map<String, Object> map);
 
     public Project selectOne(int idx);
+
+    public int countRow(Member member);
 }
