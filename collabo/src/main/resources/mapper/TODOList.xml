@@ -11,6 +11,7 @@
             AND M_idx=0
             AND TL.C_idx = #{cIdx}
         </if>
+        ORDER BY state
     </select>
     <select id="mylist" resultType="TODOList">
         select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL

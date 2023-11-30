@@ -25,7 +25,7 @@ public class TODOListController {
             List<TODOList> tlist;
             int pIdx=1;
             for (int cIdx = 1; cIdx <= 4; cIdx++){
-                tlist=todoListRepository.list(cIdx,pIdx);
+                tlist=todoListRepository.list(pIdx,cIdx);
                 model.addAttribute("tlist"+cIdx,tlist);
             }
         }catch (Exception e){
