@@ -1,6 +1,8 @@
 package com.collabo.taskmanagement.auth;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,6 +14,21 @@ public class AuthService implements UserDetailsService {
     @Autowired
     MemberRepository memberRepository;
 
+    public Member loadUserByAuthority(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated()) {
+            String userEmail = authentication.getName();
+
+            Member member = memberRepository.findByEmail(userEmail);
+
+            return member;
+        } else {
+            return null;
+        }
+    }
+
+
     public String insert(Member member){
         Member dbmember = memberRepository.findByEmail(member.getEmail());
 
@@ -22,6 +39,8 @@ public class AuthService implements UserDetailsService {
             return "duplicate";
         }
     }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
