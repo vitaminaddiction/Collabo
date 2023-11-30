@@ -12,4 +12,9 @@
         join Team t on p.idx = t.P_idx
         where t.M_idx = #{idx}
     </select>
+
+    <select id="selectOne" resultType="Project" parameterType="Integer">
+        select * from Project p
+        where p.idx = #{idx}
+    </select>
 </mapper>

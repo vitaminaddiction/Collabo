@@ -18,7 +18,7 @@ public class AuthService implements UserDetailsService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication != null && authentication.isAuthenticated()) {
-            String userEmail = authentication.getName(); // 현재 사용자의 이메일을 가져옵니다.
+            String userEmail = authentication.getName();
 
             Member member = memberRepository.findByEmail(userEmail);
 

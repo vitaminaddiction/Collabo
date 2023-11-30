@@ -10,4 +10,6 @@ public interface ProjectRepository {
     public List<Project> list();
 
     public List<Project> myProject(Member member);
+
+    public Project selectOne(int idx);
 }
