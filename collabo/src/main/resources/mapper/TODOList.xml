@@ -6,10 +6,15 @@
     <select id="list" resultType="TODOList">
         select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL
         JOIN Category AS c ON C_idx=c.idx
-        where M_idx=0
         <if test="cIdx != null">
+            where M_idx=0
             AND TL.C_idx = #{cIdx}
         </if>
+    </select>
+    <select id="mylist" resultType="TODOList">
+        select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL
+        JOIN Category AS c ON C_idx=c.idx
+        where M_idx=#{idx}
     </select>
     <update id="update" parameterType="TODOList">
         UPDATE `collabo`.`TODOList`

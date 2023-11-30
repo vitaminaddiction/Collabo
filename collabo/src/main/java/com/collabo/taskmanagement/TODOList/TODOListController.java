@@ -2,25 +2,25 @@ package com.collabo.taskmanagement.TODOList;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class TODOListController {
     @Autowired
     TODOListRepository todoListRepository;
-    @GetMapping("/TODOList")
-    public String TODOList(Model model){
+    @GetMapping("/takeTODOList")
+    public String takeTODOList(Model model){
         try {
             List<TODOList> tlist;
             for (int cIdx = 1; cIdx <= 4; cIdx++){
@@ -30,7 +30,7 @@ public class TODOListController {
         }catch (Exception e){
             System.out.println(e.toString());
         }
-        return "TODOList/TODOList";
+        return "TODOList/takeTODOList";
     }
 
     @GetMapping("/TODOListresult")
@@ -38,24 +38,32 @@ public class TODOListController {
         return "TODOList/TODOListresult";
     }
 
-    @GetMapping("/TODOListtemp")
-    public String TODOListtemp(){
-        return "TODOList/TODOListtemp";
-    }
-
-    @PostMapping("/TODOListupdate")
-    public String TODOListupdate(@RequestParam("idx") String idxString){
+    @GetMapping("/TODOList")
+    public String TODOList(Model model){
         try {
-            String[] idxArray = idxString.split(",");
-            int[] intArray = Arrays.stream(idxArray)
-                    .mapToInt(Integer::parseInt)
-                    .toArray();
-            for (int index : intArray) {
-                todoListRepository.update(1, 1, index);
-            }
+            List<TODOList> tlist=todoListRepository.list();
+            model.addAttribute("tlist",tlist);
+            List<TODOList> mytlist=todoListRepository.mylist(1);
+            model.addAttribute("mytlist",mytlist);
         }catch (Exception e){
             System.out.println(e.toString());
         }
         return "TODOList/TODOList";
+    }
+
+    @PostMapping("/TODOListupdate")
+    public ResponseEntity<String> TODOListupdate(@RequestBody Map<String, Object> data) {
+        try {
+            System.out.println(1);
+            List<Integer> idxList = (List<Integer>) data.get("idx");
+            int M_idx=1;
+            for (int index : idxList) {
+                todoListRepository.update(M_idx, 1, index);
+            }
+            return ResponseEntity.ok("작업이 성공적으로 수행되었습니다.");
+        }catch (Exception e){
+            System.out.println(e.toString());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류가 발생했습니다.");
+        }
     }
 }
