@@ -234,210 +234,20 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6">
-                            <table class="table table-dark">
-                                <h5>중요도:상</h5>
-                                <tr>
-                                    <th>TODOList</th>
-                                    <th>마감기간</th>
-                                </tr>
-                                <tr th:each="TODOList1 : ${tlist1}" class="table-light text-dark">
-                                    <td>
-                                        <a href="#"
-                                           th:attr="data-target='#modal1', data-toggle='modal', data-id=${TODOList1.idx}"
-                                           th:text="${TODOList1.title}"></a>
-                                    </td>
-                                    <div class="modal fade" id="modal1" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal1Title"
-                                                        th:text="${TODOList1.title}"></h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p th:text="${'내용 : '+TODOList1.content}"></p>
-                                                    <p th:text="${'기간 : '+TODOList1.deadline}"></p>
-                                                    <p th:switch="${+TODOList1.state}">
-                                                        <span th:case="0">상태 : 대기중</span>
-                                                        <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
-                                                    </p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">닫기
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <td th:text="${TODOList1.deadline}"></td>
-                                    <td th:data-id="${TODOList1.idx}"
-                                        th:data-title="${TODOList1.title}"
-                                        th:data-deadline="${TODOList1.deadline}"
-                                        th:data-cidx="${TODOList1.C_idx}">
-                                        <button class="btn btn-success move-btn">이동</button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="table table-dark">
-                                <h5>중요도:중</h5>
-                                <tr>
-                                    <th>TODOList</th>
-                                    <th>마감기간</th>
-                                </tr>
-                                <tr th:each="TODOList2 : ${tlist2}" class="table-light text-dark">
-                                    <td>
-                                        <a href="#"
-                                           th:attr="data-target='#modal2', data-toggle='modal', data-id=${TODOList2.idx}"
-                                           th:text="${TODOList2.title}"></a>
-                                    </td>
-                                    <div class="modal fade" id="modal2" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal2Title"
-                                                        th:text="${''+TODOList2.title}"></h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p th:text="${'내용 : '+TODOList2.content}"></p>
-                                                    <p th:text="${'기간 : '+TODOList2.deadline}"></p>
-                                                    <p th:switch="${+TODOList2.state}">
-                                                        <span th:case="0">상태 : 대기중</span>
-                                                        <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
-                                                    </p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">닫기
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <td th:text="${TODOList2.deadline}"></td>
-                                    <td th:data-id="${TODOList2.idx}"
-                                        th:data-title="${TODOList2.title}"
-                                        th:data-deadline="${TODOList2.deadline}"
-                                        th:data-cidx="${TODOList2.C_idx}">
-                                        <button class="btn btn-success move-btn">이동</button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="table table-dark">
-                                <h5>중요도:하</h5>
-                                <tr>
-                                    <th>TODOList</th>
-                                    <th>마감기간</th>
-                                </tr>
-                                <tr th:each="TODOList3 : ${tlist3}" class="table-light text-dark">
-                                    <td>
-                                        <a href="#"
-                                           th:attr="data-target='#modal3', data-toggle='modal', data-id=${TODOList3.idx}"
-                                           th:text="${TODOList3.title}"></a>
-                                    </td>
-                                    <div class="modal fade" id="modal3" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal3Title"
-                                                        th:text="${''+TODOList3.title}"></h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p th:text="${'내용 : '+TODOList3.content}"></p>
-                                                    <p th:text="${'기간 : '+TODOList3.deadline}"></p>
-                                                    <p th:switch="${+TODOList3.state}">
-                                                        <span th:case="0">상태 : 대기중</span>
-                                                        <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
-                                                    </p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">닫기
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <td th:text="${TODOList3.deadline}"></td>
-                                    <td th:data-id="${TODOList3.idx}"
-                                        th:data-title="${TODOList3.title}"
-                                        th:data-deadline="${TODOList3.deadline}"
-                                        th:data-cidx="${TODOList3.C_idx}">
-                                        <button class="btn btn-success move-btn">이동</button>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="table table-dark">
-                                <h5>중요도:기타</h5>
-                                <tr>
-                                    <th>TODOList</th>
-                                    <th>마감기간</th>
-                                </tr>
-                                <tr th:each="TODOList4 : ${tlist4}" class="table-light text-dark">
-                                    <td>
-                                        <a href="#"
-                                           th:attr="data-target='#modal4', data-toggle='modal', data-id=${TODOList4.idx}"
-                                           th:text="${TODOList4.title}"></a>
-                                    </td>
-                                    <div class="modal fade" id="modal4" tabindex="-1" role="dialog"
-                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="modal4Title"
-                                                        th:text="${''+TODOList4.title}"></h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p th:text="${'내용 : '+TODOList4.content}"></p>
-                                                    <p th:text="${'기간 : '+TODOList4.deadline}"></p>
-                                                    <p th:switch="${+TODOList4.state}">
-                                                        <span th:case="0">상태 : 대기중</span>
-                                                        <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
-                                                    </p>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">닫기
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <td th:text="${TODOList4.deadline}"></td>
-                                    <td th:data-id="${TODOList4.idx}"
-                                        th:data-title="${TODOList4.title}"
-                                        th:data-deadline="${TODOList4.deadline}"
-                                        th:data-cidx="${TODOList4.C_idx}">
-                                        <button class="btn btn-success move-btn">이동</button>
-                                    </td>
-                                </tr>
-                            </table>
+                            <form>
+                                <input type="radio" name="category" checked="checked" value="사과" /> 상
+                                <input type="radio" name="category" value="바나나" /> 중
+                                <input type="radio" name="category" value="바나나" /> 하
+                                <input type="radio" name="category" value="바나나" /> 기타
+                                <table class="table table-dark">
+                                    <h5>중요도:<span id="selectedCategory">상</span></h5>
+                                    <tr>
+                                        <th>TODOList</th>
+                                        <th>마감기한</th>
+                                    </tr>
+                                    <!-- 여기에 테이블 내용이 동적으로 생성될 것입니다. -->
+                                </table>
+                            </form>
                         </div>
                         <div class="col-md-6">
                             <table class="table table-dark">
@@ -453,12 +263,6 @@
                     <div>
                         <button class="btn btn-success input-btn" style="float: right;" >입력</button>
                         <button class="btn btn-primary refreshBtn" style="float: right;">새로고침</button>
-                    </div>
-                    <div>
-                        <button onclick="updateTableData()">Update Table Data</button>
-
-                        <table class="table table-dark" id="myTable">
-                        </table>
                     </div>
                 </div>
             </div>
@@ -562,51 +366,12 @@
     });
 </script>
 <script>
-    function updateTableData() {
-        // 서버에서 새로운 데이터 가져오기 (예시로 임시 데이터 사용)
-        var newData = [
-            { title: "New Task 1", deadline: "2023-12-31", state: 0 },
-            { title: "New Task 2", deadline: "2023-11-30", state: 1 },
-            // 추가적인 데이터...
-        ];
+    $('input[name="category"]').change(function () {
+        var selectedCategory = $('input[name="category"]:checked').val();
+        $('#selectedCategory').text(selectedCategory);
 
-        var table = document.getElementById('myTable');
-        // 테이블 초기화
-        table.innerHTML = "";
-
-        // 변경된 데이터로 테이블 채우기
-        for (var i = 0; i < newData.length; i++) {
-            var row = table.insertRow();
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-
-            cell1.innerHTML = newData[i].title;
-            cell2.innerHTML = newData[i].deadline;
-        }
-    }
-
-    // 초기로드시 테이블에 데이터 생성
-    generateTableData();
-
-    function generateTableData() {
-        // 서버에서 초기 데이터 가져오기 (예시로 임시 데이터 사용)
-        var initialData = [
-            { title: "Task 1", deadline: "2023-11-15", state: 2 },
-            { title: "Task 2", deadline: "2023-11-20", state: 1 },
-            // 초기 데이터...
-        ];
-
-        var table = document.getElementById('myTable');
-
-        // 초기 데이터로 테이블 채우기
-        for (var i = 0; i < initialData.length; i++) {
-            var row = table.insertRow();
-            var cell1 = row.insertCell(0);
-            var cell2 = row.insertCell(1);
-
-            cell1.innerHTML = initialData[i].title;
-            cell2.innerHTML = initialData[i].deadline;
-        }
-    }
+        // TODO: 선택된 카테고리에 따라 동적으로 테이블 내용을 생성하는 로직을 여기에 추가하세요.
+        // 예를 들어, AJAX를 사용하여 서버에서 데이터를 가져와 테이블을 업데이트할 수 있습니다.
+    });
 </script>
 </html>
