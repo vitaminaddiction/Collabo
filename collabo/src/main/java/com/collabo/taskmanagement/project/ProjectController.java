@@ -3,10 +3,13 @@ package com.collabo.taskmanagement.project;
 
 import com.collabo.taskmanagement.auth.AuthService;
 import com.collabo.taskmanagement.auth.Member;
+import com.collabo.taskmanagement.team.Team;
+import com.collabo.taskmanagement.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -21,6 +24,8 @@ public class ProjectController {
     AuthService authService;
     @Autowired
     ProjectRepository projectRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
 
     @GetMapping("myList")
@@ -63,5 +68,34 @@ public class ProjectController {
 
         model.addAttribute("countPage", countPage);
         return "project/list";
+    }
+
+    @GetMapping("write")
+    public String write(){
+
+        return "project/write";
+    }
+
+    @PostMapping("write")
+    public String write(Model model, ProjectReq projectReq){
+        Member member = authService.loadUserByAuthority();
+
+        Project project = Project.builder()
+                .PL_idx(member.getIdx())
+                .title(projectReq.getTitle())
+                .requirement(projectReq.getRequirement())
+                .startLine(projectReq.getStartLine())
+                .deadLine(projectReq.getDeadLine())
+                .state(projectReq.getState())
+                .build();
+        projectRepository.insert(project);
+
+        Team team = Team.builder()
+                .P_idx(project.getIdx())
+                .M_idx(member.getIdx())
+                .build();
+        teamRepository.insert(team);
+
+        return "redirect:/project/myList";
     }
 }

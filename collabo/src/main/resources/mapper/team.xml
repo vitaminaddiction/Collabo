@@ -7,4 +7,11 @@
         select count(*) from Team
         where P_idx = #{idx}
     </select>
+
+    <insert id="insert" parameterType="Team">
+        insert into Team
+        (M_idx, P_idx)
+        values
+        (#{M_idx}, #{P_idx})
+    </insert>
 </mapper>

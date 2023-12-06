@@ -33,4 +33,14 @@
         select count(*) from Project p
         where state = 0
     </select>
+
+    <insert id="insert" parameterType="Project">
+        insert into Project
+        (PL_idx, title, requirement, startline, deadline, state)
+        values
+        (#{PL_idx}, #{title}, #{requirement}, #{startLine}, #{deadLine}, #{state})
+        <selectKey keyProperty="idx" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() as idx
+        </selectKey>
+    </insert>
 </mapper>

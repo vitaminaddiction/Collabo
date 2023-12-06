@@ -2,6 +2,7 @@ package com.collabo.taskmanagement.project;
 
 import com.collabo.taskmanagement.auth.Member;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +18,7 @@ public interface ProjectRepository {
     public int countRow(Member member);
 
     public int countRowPublic();
+
+    @Options(useGeneratedKeys = true, keyProperty = "idx")
+    public void insert(Project project);
 }
