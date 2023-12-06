@@ -2,6 +2,8 @@ package com.collabo.taskmanagement.ProjectMain;
 
 import com.collabo.taskmanagement.TODOList.TODOList;
 import com.collabo.taskmanagement.TODOList.TODOListRepository;
+import com.collabo.taskmanagement.auth.AuthService;
+import com.collabo.taskmanagement.auth.Member;
 import com.collabo.taskmanagement.project.Project;
 import com.collabo.taskmanagement.project.ProjectRepository;
 import com.collabo.taskmanagement.team.TeamRepository;
@@ -21,6 +23,8 @@ public class ProjectMainController {
     TODOListRepository todoListRepository;
     @Autowired
     TeamRepository teamRepository;
+    @Autowired
+    AuthService authService;
 
 
     @GetMapping("project/index")
@@ -30,6 +34,8 @@ public class ProjectMainController {
 
     @GetMapping("project/index/{P_index}")
     public String index(Model model, @PathVariable String P_index){
+        Member member = authService.loadUserByAuthority();
+        model.addAttribute("member", member);
         Project project = projectRepository.selectOne(Integer.parseInt(P_index));
         model.addAttribute("project", project);
         List<TODOList> TODOList = todoListRepository.listByState(project.getIdx(), 0);
