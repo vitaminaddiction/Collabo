@@ -46,6 +46,7 @@ public class ProjectMainController {
         model.addAttribute("doneTODOList", doneTODOList);
         int countTeam = teamRepository.teamByProjectIndex(project.getIdx());
         model.addAttribute("countTeam", countTeam);
+
         return "project/index";
     }
 }

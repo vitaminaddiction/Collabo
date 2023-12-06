@@ -31,6 +31,15 @@
         `state`=#{state}
         WHERE `idx`=#{idx};
     </update>
+
+    <insert id="insertTODOList" parameterType="TODOList">
+        insert into TODOList
+        (P_idx, title, content, deadline, C_idx, state, M_idx)
+        values
+        (#{P_idx}, #{title}, #{content}, #{deadline}, #{C_idx}, #{state}, #{M_idx})
+    </insert>
+
+
     <insert id="insert" parameterType="Result">
         insert into Result
         (TL_idx, title, content, filename)

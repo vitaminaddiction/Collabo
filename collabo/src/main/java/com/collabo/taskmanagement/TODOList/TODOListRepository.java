@@ -12,4 +12,5 @@ public interface TODOListRepository {
     public List<TODOList> mylist(int idx);
     public List<TODOList> listByState(int idx, int state);
     public void update(int M_idx, int state, int idx);
+    public void insertTODOList(TODOList todoList);
 }
