@@ -40,10 +40,4 @@
     </insert>
 
 
-    <insert id="insert" parameterType="Result">
-        insert into Result
-        (TL_idx, title, content, filename)
-        values
-        (1, #{title}, #{content}, #{filename} )
-    </insert>
 </mapper>
