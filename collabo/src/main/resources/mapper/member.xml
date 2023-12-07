@@ -17,4 +17,8 @@
     <select id="findByEmail" parameterType="String" resultType="Member">
         select * from Member where email = #{email}
     </select>
+
+    <select id="findByIdx" parameterType="Integer" resultType="Member">
+        select * from Member where idx= #{idx}
+    </select>
 </mapper>

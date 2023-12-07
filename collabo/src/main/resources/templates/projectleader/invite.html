@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{common/SideNavCommon::head('Invite')}"></head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul th:replace="~{common/SideNavCommon::sideNav('invite')}"></ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <nav th:replace="~{common/SideNavCommon::topNav('write')}"></nav>
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <h1>팀원 초대</h1>
+                <form th:action="@{/projectleader/invitemember/{P_idx}(P_idx=${project.idx})}" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Email 입력해주세요."
+                               aria-label="Recipient's username" aria-describedby="button-addon2" id="inputText"
+                               name="inputText">
+                        <button class="btn btn-outline-secondary" type="button" id="searchBtn">검색</button>
+                    </div>
+
+                    <table class="table table-striped" id="memberTable">
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>email</th>
+                            <th>이름</th>
+                            <th>phone</th>
+                        </tr>
+                    </table>
+                    <div>
+                        <input type="submit" class="btn btn-dark" id="inviteBtn" value="초대">
+                    </div>
+                </form>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Collabo</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="auth/login.html">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script src="/vendor/jquery/jquery.min.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Core plugin JavaScript-->
+<script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom scripts for all pages-->
+<script src="/js/sb-admin-2.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    let idx;
+    $('#searchBtn').click( () => {
+        let email = $('#inputText').val();
+        let P_idx = [[${project.idx}]];
+        $('#memberTable').empty();
+        console.log(email);
+        $.ajax({
+            url: `/projectleader/invite/${P_idx}`,
+            type: 'post',
+            data: JSON.stringify({
+                "email": email
+            }),
+            contentType: 'application/json',
+            success:function(res){
+                console.log(res);
+                let prependTag = `
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th>email</th>
+                        <th>이름</th>
+                        <th>phone</th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td><input type="checkbox" class="form-check-input" data-idx="${res.idx}" id="M_idx" name="M_idx" value="${res.idx}"></td>
+                        <td>${res.email}</td>
+                        <td>${res.name}</td>
+                        <td>${res.phone}</td>
+                    </tr>`;
+                $('#memberTable').prepend(prependTag);
+                $('#inputText').val('');
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+    });
+    $('#memberTable').on('change', 'input.form-check-input', function() {
+        idx = $(this).data('idx');
+        console.log(idx);
+    });
+</script>
+</body>
+
+</html>

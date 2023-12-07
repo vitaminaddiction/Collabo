@@ -8,13 +8,15 @@ import com.collabo.taskmanagement.auth.AuthService;
 import com.collabo.taskmanagement.auth.Member;
 import com.collabo.taskmanagement.project.Project;
 import com.collabo.taskmanagement.project.ProjectRepository;
+import com.collabo.taskmanagement.team.Team;
+import com.collabo.taskmanagement.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("projectleader")
@@ -25,6 +27,8 @@ public class ProjectLeaderController {
     TODOListRepository todoListRepository;
     @Autowired
     ProjectRepository projectRepository;
+    @Autowired
+    TeamRepository teamRepository;
 
 
     @GetMapping("write/{P_idx}")
@@ -53,6 +57,33 @@ public class ProjectLeaderController {
                 .M_idx(0)
                 .build();
         todoListRepository.insertTODOList(todoList);
+        return String.format("redirect:/project/index/%s", P_idx);
+    }
+
+    @GetMapping("invite/{P_idx}")
+    public String invite(Model model, @PathVariable String P_idx){
+        Member member = authService.loadUserByAuthority();
+        model.addAttribute("member", member);
+        Project project = projectRepository.selectOne(Integer.parseInt(P_idx));
+        model.addAttribute("project", project);
+        return "projectleader/invite";
+    }
+
+
+    @PostMapping("invite/{P_idx}")
+    @ResponseBody
+    public Member invite(Model model, @PathVariable String P_idx, @RequestBody EmailJSON emailJSON){
+
+        return authService.searchMemberByEmail(emailJSON.getEmail());
+    }
+
+    @PostMapping("invitemember/{P_idx}")
+    public String inviteMember(@PathVariable String P_idx, @RequestParam String M_idx){
+        Team team = Team.builder()
+                .P_idx(Integer.parseInt(P_idx))
+                .M_idx(Integer.parseInt(M_idx))
+                .build();
+        teamRepository.insert(team);
         return String.format("redirect:/project/index/%s", P_idx);
     }
 }

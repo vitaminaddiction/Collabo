@@ -103,7 +103,7 @@
                 <h6 class="collapse-header">PL전용:</h6>
                 <a class="collapse-item" th:href="@{/projectleader/write/{P_idx}(P_idx=${project.idx})}">TODOList생성</a>
                 <a class="collapse-item" href="../utilities-border.html">TODOList검사</a>
-                <a class="collapse-item" href="../utilities-animation.html">TODOList결과 상세</a>
+                <a class="collapse-item" th:href="@{/projectleader/invite/{P_idx}(P_idx=${project.idx})}">팀원 초대</a>
             </div>
         </div>
     </li>
