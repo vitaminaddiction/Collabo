@@ -3,9 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.collabo.taskmanagement.project.ProjectRepository">
-    <select id="list" resultType="Project" parameterType="Integer">
-        select * from Project
-        where state = 0
+    <select id="list" resultType="Project" parameterType="java.util.Map">
+        select p.idx, p.PL_idx, p.title, p.requirement, p.startline, p.deadline, p.state from Project p
+        join Team t on t.P_idx = p.idx
+        where p.state = 0 and p.idx not in ( select P_idx from Team where M_idx = #{idx})
         order by idx desc
         limit #{pageNum}, 8
     </select>

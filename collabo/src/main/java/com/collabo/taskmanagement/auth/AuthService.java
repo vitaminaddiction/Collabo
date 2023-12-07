@@ -9,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AuthService implements UserDetailsService {
     @Autowired
@@ -38,6 +40,16 @@ public class AuthService implements UserDetailsService {
         }else{
             return "duplicate";
         }
+    }
+
+    public Member searchMemberByEmail(String email){
+        Member member = memberRepository.findByEmail(email);
+        return member;
+    }
+
+    public Member searchMemberByIdx(int idx){
+        Member member = memberRepository.findByIdx(idx);
+        return member;
     }
 
 

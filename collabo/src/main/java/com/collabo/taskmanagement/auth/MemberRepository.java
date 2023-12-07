@@ -12,5 +12,7 @@ public interface MemberRepository {
 
     public Member findByEmail(String email);
 
+    public Member findByIdx(int idx);
+
 
 }

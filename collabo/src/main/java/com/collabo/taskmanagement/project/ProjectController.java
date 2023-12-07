@@ -6,12 +6,10 @@ import com.collabo.taskmanagement.auth.Member;
 import com.collabo.taskmanagement.team.Team;
 import com.collabo.taskmanagement.team.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -54,11 +52,12 @@ public class ProjectController {
 
     @GetMapping("list")
     public String list(Model model, @RequestParam(required = false, defaultValue = "1") int pageNum){
+        Member member = authService.loadUserByAuthority();
         model.addAttribute("pageNum", pageNum);
 
         pageNum = (pageNum - 1) * 8;
 
-        List<Project> list = projectRepository.list(pageNum);
+        List<Project> list = projectRepository.list(pageNum, member.getIdx());
         int countRow = projectRepository.countRowPublic();
 
         model.addAttribute("list", list);
@@ -97,5 +96,29 @@ public class ProjectController {
         teamRepository.insert(team);
 
         return "redirect:/project/myList";
+    }
+
+    @GetMapping("detail/{P_idx}")
+    public ResponseEntity<ProjectDetail> getProjectDetail(@PathVariable String P_idx){
+        System.out.println("일로온다-----------------------------------------------");
+
+        Project project = projectRepository.selectOne(Integer.parseInt(P_idx));
+        Member projectLeader = authService.searchMemberByIdx(project.getPL_idx());
+        ProjectDetail projectDetail = ProjectDetail.builder()
+                .project(project)
+                .projectLeader(projectLeader)
+                .build();
+        return ResponseEntity.ok(projectDetail);
+    }
+
+    @GetMapping("participate/{P_idx}")
+    public String participate(@PathVariable String P_idx){
+        Member member = authService.loadUserByAuthority();
+        Team team = Team.builder()
+                .M_idx(member.getIdx())
+                .P_idx(Integer.parseInt(P_idx))
+                .build();
+        teamRepository.insert(team);
+        return String.format("redirect:/project/index/%s", P_idx);
     }
 }
