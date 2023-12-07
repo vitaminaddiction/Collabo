@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -58,6 +60,10 @@ public class ProjectLeaderController {
 
     @PostMapping("write/{P_idx}")
     public String write(Model model, TODOListReq todoListReq, @PathVariable String P_idx) {
+
+        System.out.println("--------------------------------");
+        System.out.println(todoListReq);
+        System.out.println("-------------------------------");
         Member member = authService.loadUserByAuthority();
         model.addAttribute("member", member);
         Project project = projectRepository.selectOne(Integer.parseInt(P_idx));
