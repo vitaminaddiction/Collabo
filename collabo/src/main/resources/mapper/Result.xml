@@ -7,6 +7,11 @@
         insert into Result
         (TL_idx, title, content, filename)
         values
-        (1, #{title}, #{content}, #{filename} )
+        (#{TL_idx}, #{title}, #{content}, #{filename} )
     </insert>
+    <select id="list" parameterType="Result">
+        SELECT TL_idx,Result.title,Result.content,filename FROM `Result`
+        JOIN `TODOList` ON TL_idx=idx
+        WHERE P_idx=#{pidx} AND state=1
+    </select>
 </mapper>

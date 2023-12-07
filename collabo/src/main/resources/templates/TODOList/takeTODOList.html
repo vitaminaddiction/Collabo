@@ -267,8 +267,7 @@
                                                     <p th:switch="${+TODOList1.state}">
                                                         <span th:case="0">상태 : 대기중</span>
                                                         <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
+                                                        <span th:case="2">상태 : 완료</span>
                                                     </p>
                                                 </div>
                                                 <div class="modal-footer">
@@ -317,8 +316,7 @@
                                                     <p th:switch="${+TODOList2.state}">
                                                         <span th:case="0">상태 : 대기중</span>
                                                         <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
+                                                        <span th:case="2">상태 : 완료</span>
                                                     </p>
                                                 </div>
                                                 <div class="modal-footer">
@@ -367,8 +365,7 @@
                                                     <p th:switch="${+TODOList3.state}">
                                                         <span th:case="0">상태 : 대기중</span>
                                                         <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
+                                                        <span th:case="2">상태 : 완료</span>
                                                     </p>
                                                 </div>
                                                 <div class="modal-footer">
@@ -417,8 +414,7 @@
                                                     <p th:switch="${+TODOList4.state}">
                                                         <span th:case="0">상태 : 대기중</span>
                                                         <span th:case="1">상태 : 진행중</span>
-                                                        <span th:case="2">상태 : 검사중</span>
-                                                        <span th:case="3">상태 : 완료</span>
+                                                        <span th:case="2">상태 : 완료</span>
                                                     </p>
                                                 </div>
                                                 <div class="modal-footer">
@@ -541,7 +537,7 @@
                 selectedIdx.push(dataId);
             });
             $.ajax({
-                url: '/TODOListupdate',
+                url: '/TODOListupdate/1',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ idx: selectedIdx }),

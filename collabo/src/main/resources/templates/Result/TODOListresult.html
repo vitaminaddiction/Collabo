@@ -229,7 +229,7 @@
                     <h1 class="h3 mb-4 text-gray-800">결과페이지</h1>
                     <div class="row">
                         <div class="col">
-                            <form action="/writeproc" method="post" th:object="${resultReq}" enctype="multipart/form-data">
+                            <form th:action="@{/writeproc/{pIdx}/{Idx}(Idx=${TLIdx},pIdx=${project.idx})}" method="post" th:object="${resultReq}" enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="title" class="form-label">Title</label>
                                     <input type="text" name="title" id="title" placeholder="title"
@@ -256,7 +256,7 @@
                                         <input type="submit" class="btn btn-dark" value="저장"/>
                                     </div>
                                     <div class="col-3 d-flex justify-content-end">
-                                        <a th:href="@{/TODOList}" class="btn btn-dark">목록</a>
+                                        <a th:href="@{/TODOList/{P_idx}(P_idx=${project.idx})}" class="btn btn-dark">목록</a>
                                     </div>
                                 </div>
                             </form>

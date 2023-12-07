@@ -9,4 +9,5 @@ import java.util.List;
 @Mapper
 public interface ResultRepository {
     public void insert(Result result);
+    public List<Result> list(int pidx);
 }

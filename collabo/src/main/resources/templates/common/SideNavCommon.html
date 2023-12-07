@@ -59,9 +59,8 @@
         </a>
         <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" th:href="@{/TODOList}">TODOList</a>
-                <a class="collapse-item" th:href="@{/takeTODOList}">TakeTODOList</a>
-                <a class="collapse-item" th:href="@{/TODOListresult}">결과입력</a>
+                <a class="collapse-item" th:href="@{/TODOList/{P_idx}(P_idx=${project.idx})}">TODOList</a>
+                <a class="collapse-item" th:href="@{/takeTODOList/{P_idx}(P_idx=${project.idx})}" >TakeTODOList</a>
             </div>
         </div>
     </li>
@@ -102,8 +101,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">PL전용:</h6>
                 <a class="collapse-item" th:href="@{/projectleader/write/{P_idx}(P_idx=${project.idx})}">TODOList생성</a>
-                <a class="collapse-item" href="../utilities-border.html">TODOList검사</a>
-                <a class="collapse-item" th:href="@{/projectleader/invite/{P_idx}(P_idx=${project.idx})}">팀원 초대</a>
+                <a class="collapse-item" th:href="@{/projectleader/list/{P_idx}(P_idx=${project.idx})}">TODOList검사</a>
             </div>
         </div>
     </li>

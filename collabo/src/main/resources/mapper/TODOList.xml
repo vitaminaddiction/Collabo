@@ -16,7 +16,7 @@
     <select id="mylist" resultType="TODOList">
         select TL.idx,P_idx,title,content,deadline,`name`,state,M_idx from TODOList AS TL
         JOIN Category AS c ON C_idx=c.idx
-        where M_idx=#{idx}
+        where M_idx=#{idx} AND P_idx=#{p_idx}
     </select>
 
     <select id="listByState" resultType="TODOList" parameterType="java.util.Map">
@@ -38,6 +38,11 @@
         values
         (#{P_idx}, #{title}, #{content}, #{deadline}, #{C_idx}, #{state}, #{M_idx})
     </insert>
+
+    <delete id="delete" parameterType="TODOList">
+        DELETE FROM `collabo`.`Result`
+        WHERE  `TL_idx`=#{state}
+    </delete>
 
 
 </mapper>
