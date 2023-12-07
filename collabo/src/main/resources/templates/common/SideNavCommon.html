@@ -37,7 +37,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
-        <a class="nav-link" th:href="@{/task/index}">
+        <a class="nav-link" th:href="@{/project/index/{idx}(idx=${project.idx})}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>한눈에 보기</span></a>
     </li>
