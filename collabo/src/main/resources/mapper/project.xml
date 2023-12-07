@@ -3,18 +3,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.collabo.taskmanagement.project.ProjectRepository">
-    <select id="list" resultType="Project">
+    <select id="list" resultType="Project" parameterType="Integer">
         select * from Project
+        where state = 0
+        order by idx desc
+        limit #{pageNum}, 8
     </select>
 
-    <select id="myProject" resultType="Project" parameterType="Member">
+    <select id="myProject" resultType="Project" parameterType="java.util.Map">
         select * from Project p
         join Team t on p.idx = t.P_idx
-        where t.M_idx = #{idx}
+        where t.M_idx = #{member.idx} and deadline > CURDATE()
+        order by idx desc
+        limit #{pageNum, jdbcType=INTEGER}, 8
     </select>
 
     <select id="selectOne" resultType="Project" parameterType="Integer">
         select * from Project p
         where p.idx = #{idx}
     </select>
+
+    <select id="countRow" resultType="Integer" parameterType="Member">
+        select count(*) from Project p
+        join Team t on p.idx = t.P_idx
+        where t.M_idx = ${idx}
+    </select>
+
+    <select id="countRowPublic" resultType="Integer">
+        select count(*) from Project p
+        where state = 0
+    </select>
+
+    <insert id="insert" parameterType="Project">
+        insert into Project
+        (PL_idx, title, requirement, startline, deadline, state)
+        values
+        (#{PL_idx}, #{title}, #{requirement}, #{startLine}, #{deadLine}, #{state})
+        <selectKey keyProperty="idx" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID() as idx
+        </selectKey>
+    </insert>
 </mapper>

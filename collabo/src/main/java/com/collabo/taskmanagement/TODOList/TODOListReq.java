@@ -12,12 +12,14 @@ public class TODOListReq {
 
     @Nullable
     private int idx;
-
+    @Nullable
     private int P_idx;
     private String title;
     private String content;
     private LocalDate deadline;
     private String C_idx;
+    @Nullable
     private int state;
+    @Nullable
     private int M_idx;
 }

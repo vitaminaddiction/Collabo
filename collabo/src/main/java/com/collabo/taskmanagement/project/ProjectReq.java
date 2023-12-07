@@ -9,11 +9,10 @@ import java.time.LocalDate;
 
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class Project {
-    private int idx;
-    private int PL_idx;
+@NoArgsConstructor
+public class ProjectReq {
+
     private String title;
     private String requirement;
     private LocalDate startLine;

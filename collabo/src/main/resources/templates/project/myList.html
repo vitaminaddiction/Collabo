@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="~{common/TopNavCommon::head('list')}"></head>
+<head th:replace="~{common/TopNavCommon::head('myList')}">
+</head>
 <body>
-<nav th:replace="~{common/TopNavCommon::topNav('list')}"></nav>
+<nav th:replace="~{common/TopNavCommon::topNav('myList')}"></nav>
 <!-- Header-->
 <header class="bg-dark py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">공개 프로젝트</h1>
-            <p class="lead fw-normal text-white-50 mb-0">공개된 프로젝트에 자유롭게 참여하세요.</p>
+            <h1 class="display-4 fw-bolder">나의 프로젝트</h1>
+            <p class="lead fw-normal text-white-50 mb-0">내가 참여한 프로젝트</p>
         </div>
     </div>
 </header>
@@ -19,7 +20,7 @@
             <div th:each="project : ${list}" class="col mb-5">
                 <div class="card h-100">
                     <!-- Product image-->
-                    <img class="card-img-top" src="/img/project-icon.png" alt="..."/>
+                    <img class="card-img-top" src="/img/project-icon2.png" alt="..."/>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
@@ -32,12 +33,14 @@
                     <!-- Product actions-->
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center">
-                            <a class="btn btn-outline-dark mt-auto" th:href="@{/project/index/{idx}(idx=${project.idx})}">
-                                View options</a>
+                            <a class="btn btn-outline-dark mt-auto"
+                                                    th:href="@{/project/index/{idx}(idx=${project.idx})}">View
+                            options</a>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <div class="row">
